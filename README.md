@@ -1,4 +1,10 @@
-# FrontendBeavergoose
+# frontend beavergoose
+
+The frontend repo of my semester 6 Individual Project, written in TypeScript & Angular 13.2.2.
+
+---
+
+# Angular Setup
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.2.
 

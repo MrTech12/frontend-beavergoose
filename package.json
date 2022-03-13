@@ -1,6 +1,17 @@
 {
   "name": "frontend-beavergoose",
   "version": "0.0.0",
+  "description": "The frontend repo of my semester 6 Individual Project.",
+  "author": "MrTech12",
+  "license": "MIT",
+  "homepage": "https://github.com/MrTech12/frontend-beavergoose#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrTech12/frontend-beavergoose.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MrTech12/frontend-beavergoose/issues"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
