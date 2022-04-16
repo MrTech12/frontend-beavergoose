@@ -1,0 +1,42 @@
+name: "Run tests & retrieve results"
+on:
+  push:
+    branches:
+      - "main"
+      - "development"
+      - "feature-**"
+  pull_request:
+    branches:
+      - "main"
+      - "development"
+
+jobs:
+  link-testing:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "checkout project code"
+        uses: actions/checkout@v2
+      
+      - name: "Setup Node.JS v16"
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Run tests & gather Code Coverage"
+        run: npm run test:ci
+
+      - name: Retrieve Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: "junit-testResults/*.xml"
+
+      - name: Retrieve Code Coverage
+        uses: 5monkeys/cobertura-action@master
+        with:
+          path: coverage/frontend-beavergoose/cobertura-coverage.xml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_coverage: 80
