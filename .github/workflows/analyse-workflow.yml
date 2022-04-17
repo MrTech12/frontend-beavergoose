@@ -44,4 +44,4 @@ jobs:
             -Dsonar.sources=src/app
             -Dsonar.tests=src/app
             -Dsonar.test.inclusions=*spec.ts
-            -Dsonar.testExecutionReportPaths=reports
+            -Dsonar.testExecutionReportPaths=reports/*.xml
