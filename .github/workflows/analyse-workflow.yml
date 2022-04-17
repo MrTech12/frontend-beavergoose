@@ -37,10 +37,10 @@ jobs:
         run: ls -l src/
 
       - name: list files 3
-        run: ls -l src/**
+        run: ls -l src/app
 
       - name: list files 4
-        run: ls -l src/*
+        run: ls -l src/app/
 
       # - name: "Run Sonarcloud analysis"
       #   uses: SonarSource/sonarcloud-github-action@master
