@@ -42,6 +42,5 @@ jobs:
             -Dsonar.projectKey=MrTech12_frontend-beavergoose
             -Dsonar.projectName=frontend-beavergoose
             -Dsonar.sources=.
-            -Dsonar.exclusions=**spec.ts
             -Dsonar.tests=.
             -Dsonar.test.inclusions=**spec.ts
