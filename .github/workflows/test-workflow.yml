@@ -11,7 +11,7 @@ on:
       - "development"
 
 jobs:
-  link-testing:
+  testing:
     runs-on: ubuntu-20.04
     steps:
       - name: "checkout project code"
@@ -28,15 +28,21 @@ jobs:
       - name: "Run tests & gather Code Coverage"
         run: npm run test:ci
 
-      - name: Retrieve Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: "junit-testResults/*.xml"
+      # - name: Retrieve Test Results
+      #   uses: EnricoMi/publish-unit-test-result-action@v1
+      #   if: always()
+      #   with:
+      #     files: "junit-testResults/*.xml"
 
-      - name: Retrieve Code Coverage
-        uses: 5monkeys/cobertura-action@master
+      # - name: Retrieve Code Coverage
+      #   uses: 5monkeys/cobertura-action@master
+      #   with:
+      #     path: coverage/frontend-beavergoose/cobertura-coverage.xml
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     minimum_coverage: 80
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always() # always run even if the previous step fails
         with:
-          path: coverage/frontend-beavergoose/cobertura-coverage.xml
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_coverage: 80
+          report_paths: 'junit-testResults/*.xml'
