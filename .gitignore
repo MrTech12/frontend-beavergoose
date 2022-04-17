@@ -43,3 +43,6 @@ Thumbs.db
 
 # Karma testing
 junit-testResults
+
+# Sonarqube test reporting
+reports

@@ -12,6 +12,7 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
       require('karma-junit-reporter'),
+      require('karma-sonarqube-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -43,7 +44,7 @@ module.exports = function (config) {
         }
       },
     },
-    reporters: ['progress', 'kjhtml', 'junit', 'coverage'],
+    reporters: ['progress', 'kjhtml', 'junit', 'coverage', 'sonarqube'],
 
     junitReporter: {
       outputDir: 'junit-testResults', // results will be saved as $outputDir/$browserName.xml
@@ -54,6 +55,17 @@ module.exports = function (config) {
       classNameFormatter: undefined, // function (browser, result) to customize the classname attribute in xml testcase element
       properties: {}, // key value pair of properties to add to the <properties> section of the report
       xmlVersion: null // use '1' if reporting to be per SonarQube 6.2 XML format
+    },
+
+    sonarqubeReporter: {
+      basePath: 'src/app',
+      outputFolder: 'reports',
+      filePattern: '**/*spec.ts',
+      encoding: 'utf-8',
+      legacyMode: false,
+      reportName: (metadata) => {
+        return metadata.concat('xml').join('.');
+      }
     },
 
     port: 9876,

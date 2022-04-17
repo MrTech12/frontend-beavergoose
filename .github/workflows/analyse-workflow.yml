@@ -36,11 +36,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: src/app
+          # projectBaseDir: src/app
           args: >
             -Dsonar.organization=mrtech12
             -Dsonar.projectKey=MrTech12_frontend-beavergoose
             -Dsonar.projectName=frontend-beavergoose
-            -Dsonar.sources=.
-            -Dsonar.tests=.
+            -Dsonar.sources=src/app
+            -Dsonar.tests=src/app
             -Dsonar.test.inclusions=*spec.ts
+            -Dsonar.testExecutionReportPaths=reports
