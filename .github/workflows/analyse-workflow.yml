@@ -30,28 +30,16 @@ jobs:
       - name: "Run tests & gather Code Coverage"
         run: npm run test:ci
 
-      - name: list files 1
-        run: ls -l
-
-      - name: list files 2
-        run: ls -l src/
-
-      - name: list files 3
-        run: ls -l src/app
-
-      - name: list files 4
-        run: ls -l src/app/
-
-      # - name: "Run Sonarcloud analysis"
-      #   uses: SonarSource/sonarcloud-github-action@master
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   with:
-      #     projectBaseDir: src/**
-      #     args: >
-      #       -Dsonar.organization=mrtech12
-      #       -Dsonar.projectKey=MrTech12_frontend-beavergoose
-      #       -Dsonar.projectName=frontend-beavergoose
-      #       -Dsonar.sources=src/**
-      #       -Dsonar.tests=src/**
+      - name: "Run Sonarcloud analysis"
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: src/app
+          args: >
+            -Dsonar.organization=mrtech12
+            -Dsonar.projectKey=MrTech12_frontend-beavergoose
+            -Dsonar.projectName=frontend-beavergoose
+            -Dsonar.sources=src/app
+            -Dsonar.tests=src/app
