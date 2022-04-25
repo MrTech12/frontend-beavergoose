@@ -42,6 +42,12 @@ module.exports = function (config) {
           lines: 80,
         }
       },
+      watermarks: {
+        statements: [ 50, 75 ],
+        functions: [ 50, 75 ],
+        branches: [ 50, 75 ],
+        lines: [ 50, 75 ]
+      }
     },
     reporters: ['progress', 'kjhtml', 'junit', 'coverage'],
 
