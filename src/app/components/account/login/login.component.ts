@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { AccountService } from '../../../services/account.service';
+import { AuthCookieService } from '../../../services/auth-cookie.service';
 import { Login } from '../../../types/Login';
+import { AuthCookie } from '../../../types/AuthCookie';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +15,10 @@ export class LoginComponent implements OnInit {
   password = new FormControl('', [Validators.required]);
   backendError: string = "";
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private authCookieService: AuthCookieService) { }
 
   ngOnInit(): void {
+    this.authCookieService.checkAuthCookies();
   }
 
   onSubmit() {
@@ -31,9 +34,12 @@ export class LoginComponent implements OnInit {
       }
 
       this.accountService.Login(login).subscribe(data => {
-        console.log(data);
-        console.log(data.token);
-        
+        const authCookie: AuthCookie = {
+          Token: data.token,
+          UserId: data.userId
+        }
+
+        this.authCookieService.createAuthCookies(authCookie);
       }, error => {
         if(error.error.message == undefined) {
           this.backendError = "server not available";
