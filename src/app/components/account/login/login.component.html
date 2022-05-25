@@ -1,25 +1,34 @@
-<div class="">
-    <br/>
-    <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title>Inloggen in jouw account</mat-card-title>
-          <mat-card-subtitle>Vul jouw gegevens om in jouw omgeving te komen.</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-
-            
-
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>Inloggen</button>
-          <a routerLink="/register">
-              <button mat-button color="primary">Registeren</button>
-          </a>
-        </mat-card-actions>
-      </mat-card>
+<div>
+  <br/>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Inloggen in jouw account</mat-card-title>
+      <mat-card-subtitle>Vul jouw gegevens om in jouw omgeving te komen.</mat-card-subtitle>
+    </mat-card-header>
+    <form (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <p><mat-label [ngStyle]="{'color': 'red'}">{{backendError}}</mat-label></p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Gebruikersnaam</mat-label>
+            <input matInput required type="text" name="username" [formControl]="username" id="username">
+            <mat-error>{{getUsernameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Wachtwoord</mat-label>
+            <input matInput required type="text" name="password" [formControl]="password" id="password">
+            <mat-error>{{getPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" type="submit">Inloggen</button>
+        <a routerLink="/register">
+          <button mat-button color="accent">Registeren</button>
+        </a>
+      </mat-card-actions>
+    </form>
+  </mat-card>
 </div>
