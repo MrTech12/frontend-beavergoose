@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Login } from '../types/Login';
+import { Register } from '../types/Register';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AccountService {
     return this.httpClient.post<Login>(`${environment.apiGateway}account/login`, login);
   }
 
-  Register() {
-
+  Register(register: Register): Observable<any> {
+    return this.httpClient.post<Login>(`${environment.apiGateway}account/register`, register);
   }
 }

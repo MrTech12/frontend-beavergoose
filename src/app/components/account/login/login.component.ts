@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.backendError = error.error.message;
         }
-      }
-      );
+      });
     }
     return null;
   }
