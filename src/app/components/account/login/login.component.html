@@ -12,14 +12,14 @@
           <mat-form-field appearance="outline">
             <mat-label>Gebruikersnaam</mat-label>
             <input matInput required type="text" name="username" [formControl]="username" id="username">
-            <mat-error>{{getUsernameErrorMessage()}}</mat-error>
+            <mat-error *ngIf="this.username.hasError('required')">Een waarde is verplicht.</mat-error>
           </mat-form-field>
         </p>
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Wachtwoord</mat-label>
-            <input matInput required type="text" name="password" [formControl]="password" id="password">
-            <mat-error>{{getPasswordErrorMessage()}}</mat-error>
+            <input matInput required type="password" name="password" [formControl]="password" id="password">
+            <mat-error *ngIf="this.password.hasError('required')">Een waarde is verplicht.</mat-error>
           </mat-form-field>
         </p>
       </mat-card-content>

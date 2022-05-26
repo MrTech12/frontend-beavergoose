@@ -3,7 +3,16 @@
     <mat-card>
         <mat-card-header>
             <mat-card-title>Registeer een nieuw account</mat-card-title>
-            <mat-card-subtitle>Vul jouw gegevens om een eigen account te maken.</mat-card-subtitle>
+            <mat-card-subtitle>
+                Vul jouw gegevens om een eigen account te maken. <br>
+                Het wachtwoord moet aan de volgende eisen voldoen: <br>
+                <ul>
+                    <li>Minimaal 8 tekens lang</li>
+                    <li>Een hoofdletter bevatten</li>
+                    <li>Een cijfer bevatten</li>
+                    <li>Een speciaal karakter bevatten</li>
+                </ul>
+            </mat-card-subtitle>
         </mat-card-header>
         <form (ngSubmit)="onSubmit()">
             <mat-card-content>
@@ -12,21 +21,24 @@
                     <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput required type="text" name="email" [formControl]="email" id="email">
-                    <mat-error>{{getEmailErrorMessage()}}</mat-error>
+                    <mat-error *ngIf="this.email.hasError('required')">Een waarde is verplicht.</mat-error>
+                    <mat-error *ngIf="this.email.hasError('pattern')">Dit is geen geldig mailadres.</mat-error>
                     </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field appearance="outline">
                     <mat-label>Gebruikersnaam</mat-label>
                     <input matInput required type="text" name="username" [formControl]="username" id="username">
-                    <mat-error>{{getUsernameErrorMessage()}}</mat-error>
+                    <mat-error *ngIf="this.username.hasError('required')">Een waarde is verplicht.</mat-error>
                     </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field appearance="outline">
                     <mat-label>Wachtwoord</mat-label>
-                    <input matInput required type="text" name="password" [formControl]="password" id="password">
-                    <mat-error>{{getPasswordErrorMessage()}}</mat-error>
+                    <input matInput required type="password" name="password" [formControl]="password" id="password">
+                    <mat-error *ngIf="this.password.hasError('required')">Een waarde is verplicht.</mat-error>
+                    <mat-error *ngIf="this.password.hasError('minlength')">Het wachtwoord is niet lang genoeg.</mat-error>
+                    <mat-error *ngIf="this.password.hasError('pattern')">Het wachtwoord komt niet overeen met de eisen.</mat-error>
                     </mat-form-field>
                 </p>
             </mat-card-content>

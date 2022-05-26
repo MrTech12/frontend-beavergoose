@@ -11,9 +11,9 @@ import {Register} from '../../../types/Register';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
-  username = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern()]);
+  email = new FormControl('', [Validators.required, Validators.email, Validators.pattern(/\S+@\S+\.\S/g)]);
+  username = new FormControl('', [Validators.required,]);
+  password = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/[^0-9a-zA-Z][.!@#$%^&*()-__=+;:'"\\|,.<>/?{}[/`~]/g)]);
   backendError: string = "";
 
   constructor(private accountService: AccountService, private authCookieService: AuthCookieService, private router: Router) { }
@@ -23,10 +23,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.email.hasError('required') || this.username.hasError('required') || this.password.hasError('required')) {
+    if (this.email.errors != null && this.username.errors != null && this.password.errors != null) {
       return null;
     }
-    else {
+    else if (this.email.errors == null && this.username.errors == null && this.password.errors == null) {
       this.backendError = "";
 
       const register: Register = {
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
         Username: this.username.value,
         Password: this.password.value,
       }
-  
+
       this.accountService.Register(register).subscribe(data => {
         this.router.navigateByUrl('login');
       }, error => {
@@ -46,32 +46,5 @@ export class RegisterComponent implements OnInit {
       });
     }
     return null;
-  }
-
-  getEmailErrorMessage() {
-    if (this.username.hasError('required')) {
-      return 'Een waarde is verplicht.';
-    }
-    else {
-      return null
-    }
-  }
-
-  getUsernameErrorMessage() {
-    if (this.username.hasError('required')) {
-      return 'Een waarde is verplicht.';
-    }
-    else {
-      return null
-    }
-  }
-
-  getPasswordErrorMessage() {
-    if (this.password.hasError('required')) {
-      return 'Een waarde is verplicht.';
-    }
-    else {
-      return null
-    }
   }
 }

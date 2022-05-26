@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.username.hasError('required') || this.password.hasError('required')) {
+    if (this.username.errors != null && this.password.errors != null) {
       return null;
     }
-    else {
+    else if (this.username.errors == null && this.password.errors == null) {
       this.backendError = "";
 
       const login: Login = {
@@ -49,23 +49,5 @@ export class LoginComponent implements OnInit {
       });
     }
     return null;
-  }
-
-  getUsernameErrorMessage() {
-    if (this.username.hasError('required')) {
-      return 'Een waarde is verplicht.';
-    }
-    else {
-      return null
-    }
-  }
-
-  getPasswordErrorMessage() {
-    if (this.password.hasError('required')) {
-      return 'Een waarde is verplicht.';
-    }
-    else {
-      return null
-    }
   }
 }
