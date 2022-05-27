@@ -1,5 +1,3 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.card-custom {
+    max-width: 400px;
 }

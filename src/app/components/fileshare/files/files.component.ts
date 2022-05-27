@@ -15,4 +15,8 @@ export class FilesComponent implements OnInit {
     this.authCookieService.checkAuthCookies();
   }
 
+  Logout() {
+    this.authCookieService.RemoveAuthCookies();
+  }
+
 }

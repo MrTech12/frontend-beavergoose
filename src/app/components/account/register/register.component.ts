@@ -21,7 +21,6 @@ export class RegisterComponent implements OnInit {
   constructor(private accountService: AccountService, private authCookieService: AuthCookieService, private router: Router) { }
 
   ngOnInit(): void {
-    this.authCookieService.checkAuthCookies();
   }
 
   onSubmit() {
