@@ -43,10 +43,12 @@
                 </p>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button color="primary" type="submit">Registeren</button>
+                <button mat-button color="primary" type="submit" [disabled]="disableRegisterBtn">Registeren</button>
                 <a routerLink="/login">
                     <button mat-button color="accent">Inloggen</button>
                 </a>
+                <mat-spinner *ngIf="hideSpinner === false">
+                </mat-spinner>
             </mat-card-actions>
       </form>
     </mat-card>

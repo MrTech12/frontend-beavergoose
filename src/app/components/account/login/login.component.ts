@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   username = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required]);
   backendError: string = "";
+  hideSpinner: boolean = true;
+  disableLoginBtn: boolean = false;
 
   constructor(private accountService: AccountService, private authCookieService: AuthCookieService) { }
 
@@ -27,6 +29,8 @@ export class LoginComponent implements OnInit {
     }
     else if (this.username.errors == null && this.password.errors == null) {
       this.backendError = "";
+      this.disableLoginBtn = true;
+      this.hideSpinner = false;
 
       const login: Login = {
         Username: this.username.value,
@@ -41,6 +45,9 @@ export class LoginComponent implements OnInit {
 
         this.authCookieService.createAuthCookies(authCookie);
       }, error => {
+        this.hideSpinner = true;
+        this.disableLoginBtn = false;
+
         if(error.error.message == undefined) {
           this.backendError = "server not available";
         } else {

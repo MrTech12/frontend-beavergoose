@@ -14,11 +14,20 @@ export class AuthCookieService {
     if (this.cookieService.get('token') != "") {
       this.router.navigateByUrl('files');
     }
+    else {
+      this.router.navigateByUrl('login');
+    }
   }
 
   createAuthCookies(authCookie: AuthCookie) {
     this.cookieService.set("token", authCookie.Token);
     this.cookieService.set("userId", authCookie.UserId);
     this.router.navigateByUrl('files');
+  }
+
+  RemoveAuthCookies() {
+    this.cookieService.delete("token");
+    this.cookieService.delete("userId");
+    this.router.navigateByUrl('login');
   }
 }
