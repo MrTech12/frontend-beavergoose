@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../../services/account.service';
 import { AuthCookieService } from '../../../services/auth-cookie.service';
 
 @Component({
@@ -9,10 +8,9 @@ import { AuthCookieService } from '../../../services/auth-cookie.service';
 })
 export class FilesComponent implements OnInit {
 
-  constructor(private accountService: AccountService, private authCookieService: AuthCookieService) { }
+  constructor(private authCookieService: AuthCookieService) { }
 
   ngOnInit(): void {
-    this.authCookieService.checkAuthCookies();
   }
 
   Logout() {

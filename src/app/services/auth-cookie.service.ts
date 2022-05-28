@@ -9,16 +9,7 @@ import { AuthCookie } from '../types/AuthCookie';
 export class AuthCookieService {
 
   constructor(private cookieService: CookieService, private router: Router) { }
-
-  checkAuthCookies() {
-    if (this.cookieService.get('token') != "") {
-      this.router.navigateByUrl('files');
-    }
-    else {
-      this.router.navigateByUrl('login');
-    }
-  }
-
+  
   createAuthCookies(authCookie: AuthCookie) {
     this.cookieService.set("token", authCookie.Token);
     this.cookieService.set("userId", authCookie.UserId);

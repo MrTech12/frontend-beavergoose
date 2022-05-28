@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   constructor(private accountService: AccountService, private authCookieService: AuthCookieService) { }
 
   ngOnInit(): void {
-    this.authCookieService.checkAuthCookies();
   }
 
   onSubmit() {

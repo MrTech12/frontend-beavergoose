@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CookieService} from 'ngx-cookie-service';
+import { AuthGuard } from './guards/auth.guard';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,9 +23,9 @@ const appRoutes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'files', component: FilesComponent},
-  {path: 'sendfile', component: SendFileComponent},
-  {path: 'retrievefile', component: RetrieveFileComponent} 
+  {path: 'files', component: FilesComponent, canActivate: [AuthGuard]},
+  {path: 'sendfile', component: SendFileComponent, canActivate: [AuthGuard]},
+  {path: 'retrievefile', component: RetrieveFileComponent, canActivate: [AuthGuard]} 
 ]
 
 @NgModule({
@@ -43,7 +46,12 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({config: {
+      tokenGetter: undefined,
+      allowedDomains: [environment.apiGateway],
+      disallowedRoutes: [],
+    }})
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

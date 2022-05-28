@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
-import { AuthCookieService } from '../../../services/auth-cookie.service';
 import {Register} from '../../../types/Register';
 
 @Component({
@@ -18,7 +17,7 @@ export class RegisterComponent implements OnInit {
   hideSpinner: boolean = true;
   disableRegisterBtn: boolean = false;
 
-  constructor(private accountService: AccountService, private authCookieService: AuthCookieService, private router: Router) { }
+  constructor(private accountService: AccountService, private router: Router) { }
 
   ngOnInit(): void {
   }
