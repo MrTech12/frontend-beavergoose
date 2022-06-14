@@ -10,15 +10,30 @@ export class AuthCookieService {
 
   constructor(private cookieService: CookieService, private router: Router) { }
   
-  createAuthCookies(authCookie: AuthCookie) {
-    this.cookieService.set("token", authCookie.Token);
-    this.cookieService.set("userId", authCookie.UserId);
+  createAuthCookies(authCookie: AuthCookie, userId: string) {
+    this.cookieService.set("AccessToken", authCookie.AccessToken);
+    this.cookieService.set("RefreshToken", authCookie.RefreshToken);
+    this.cookieService.set("UserId", userId);
     this.router.navigateByUrl('files');
   }
 
+  refreshAuthCookies(authCookie: AuthCookie) {
+    this.cookieService.set("AccessToken", authCookie.AccessToken);
+    this.cookieService.set("RefreshToken", authCookie.RefreshToken);
+  }
+
+  retrieveAuthCookies() {
+    const authCookie: AuthCookie = {
+      AccessToken: this.cookieService.get("AccessToken"),
+      RefreshToken: this.cookieService.get("RefreshToken")
+    }
+    return authCookie;
+  }
+
   RemoveAuthCookies() {
-    this.cookieService.delete("token");
-    this.cookieService.delete("userId");
+    this.cookieService.delete("AccessToken")
+    this.cookieService.delete("RefreshToken")
+    this.cookieService.delete("UserId")
     this.router.navigateByUrl('login');
   }
 }

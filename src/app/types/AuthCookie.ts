@@ -1,4 +1,4 @@
 export interface AuthCookie {
-    Token: string;
-    UserId: string;
+    AccessToken: string;
+    RefreshToken: string;
 }

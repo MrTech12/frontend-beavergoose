@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit {
 
       this.accountService.Login(login).subscribe(data => {
         const authCookie: AuthCookie = {
-          Token: data.token,
-          UserId: data.userId
+          AccessToken: data.accessToken,
+          RefreshToken: data.refeshToken
         }
 
-        this.authCookieService.createAuthCookies(authCookie);
+        this.authCookieService.createAuthCookies(authCookie, data.userId);
       }, error => {
         this.hideSpinner = true;
         this.disableLoginBtn = false;

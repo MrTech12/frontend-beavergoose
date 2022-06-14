@@ -1,20 +1,56 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthCookieService } from '../services/auth-cookie.service';
+import { TokenService } from '../services/token.service';
+import { AuthCookie } from '../types/AuthCookie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate  {
-  constructor(private router: Router, private jwtHelper: JwtHelperService, private cookieService: CookieService){}
+  constructor(private router: Router, private jwtHelper: JwtHelperService, private authCookieService: AuthCookieService, private tokenService: TokenService){}
   
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const token = this.cookieService.get("token");
-    if (token && !this.jwtHelper.isTokenExpired(token)){
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const AuthTokens = this.authCookieService.retrieveAuthCookies();
+
+    if (AuthTokens.AccessToken && !this.jwtHelper.isTokenExpired(AuthTokens.AccessToken)){
       return true;
     }
-    this.router.navigate(["login"]);
-    return false;
+
+    const isRefreshSuccess = await this.tryRefreshingTokens(AuthTokens.AccessToken); 
+    if (!isRefreshSuccess) { 
+      this.router.navigate(["login"]); 
+    }
+    return isRefreshSuccess;
+  }
+
+  private async tryRefreshingTokens(token: string): Promise<boolean> {
+    const AuthTokens = this.authCookieService.retrieveAuthCookies();
+    
+    if (!token || !AuthTokens.RefreshToken) { 
+      return false;
+    }
+    
+    let isRefreshSuccess: boolean = false;
+    const authCookie: AuthCookie = {
+      AccessToken: AuthTokens.AccessToken,
+      RefreshToken: AuthTokens.RefreshToken
+    }
+    
+    this.tokenService.RefreshTokens(authCookie).subscribe(data => {
+      console.log("response");
+      console.table(data);
+      const newAuthValues: AuthCookie = {
+        AccessToken: data.accessToken,
+        RefreshToken: data.refreshToken
+      }
+      this.authCookieService.refreshAuthCookies(newAuthValues);
+      isRefreshSuccess = true;
+    }, error => {
+      isRefreshSuccess = false;
+    })
+
+    return isRefreshSuccess;
   }
 }
