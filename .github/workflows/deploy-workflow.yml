@@ -26,7 +26,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/frontend-beavergoose:${ GITHUB_REF_NAME }
+          tags: ${{ secrets.DOCKER_USERNAME }}/beavergoose-frontend:${ GITHUB_REF_NAME }
   deploy-kubernetes:
     runs-on: ubuntu-20.04
     needs: build-push-docker
@@ -40,7 +40,19 @@ jobs:
       run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.DIGITALOCEAN_CLUSTER_NAME }}
     
     - name: Deploy to DigitalOcean's Kubernetes cluster
-      run: kubectl apply -f deploy/project/frontend-beavergoose-deployment.yml
+      run: kubectl apply -f deploy/frontend-deployment.yml
     
     - name: Verify deployment
-      run: kubectl rollout status deployment/frontend-beavergoose-deployment
+      run: kubectl rollout status deployment/frontend-deployment
+
+    - name: Update service on DigitalOcean's Kubernetes cluster
+      run: kubectl apply -f deploy/frontend-service.yml
+    
+    - name: Verify new service
+      run: kubectl get service frontend-service --sort-by=.metadata.name
+
+    - name: Update ingress rules on DigitalOcean's Kubernetes cluster
+      run: kubectl apply -f deploy/frontend-ingress-rules.yml
+    
+    - name: Verify new ingress rules
+      run: kubectl describe ingress frontend-ingress
