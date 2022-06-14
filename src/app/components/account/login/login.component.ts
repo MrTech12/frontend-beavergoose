@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       this.accountService.Login(login).subscribe(data => {
         const authCookie: AuthCookie = {
           AccessToken: data.accessToken,
-          RefreshToken: data.refeshToken
+          RefreshToken: data.refreshToken
         }
 
         this.authCookieService.createAuthCookies(authCookie, data.userId);

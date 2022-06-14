@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AuthCookie } from '../types/AuthCookie';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class AuthCookieService {
   constructor(private cookieService: CookieService, private router: Router) { }
   
   createAuthCookies(authCookie: AuthCookie, userId: string) {
-    this.cookieService.set("AccessToken", authCookie.AccessToken);
-    this.cookieService.set("RefreshToken", authCookie.RefreshToken);
+    this.cookieService.set("AccessToken", authCookie.AccessToken, { sameSite: 'Strict', secure: true });
+    this.cookieService.set("RefreshToken", authCookie.RefreshToken, { sameSite: 'Strict', secure: true });
     this.cookieService.set("UserId", userId);
     this.router.navigateByUrl('files');
   }

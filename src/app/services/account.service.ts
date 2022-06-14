@@ -14,10 +14,10 @@ export class AccountService {
   constructor(private httpClient: HttpClient) { }
 
   Login(login: Login): Observable<any>{
-    return this.httpClient.post<Login>(`${environment.apiGateway}account/login`, login);
+    return this.httpClient.post<Login>(`${environment.backend}/gateway/account/login`, login);
   }
 
   Register(register: Register): Observable<any> {
-    return this.httpClient.post<Login>(`${environment.apiGateway}account/register`, register);
+    return this.httpClient.post<Login>(`${environment.backend}/gateway/account/register`, register);
   }
 }

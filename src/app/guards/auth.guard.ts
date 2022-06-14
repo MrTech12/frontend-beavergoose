@@ -39,8 +39,6 @@ export class AuthGuard implements CanActivate  {
     }
     
     this.tokenService.RefreshTokens(authCookie).subscribe(data => {
-      console.log("response");
-      console.table(data);
       const newAuthValues: AuthCookie = {
         AccessToken: data.accessToken,
         RefreshToken: data.refreshToken

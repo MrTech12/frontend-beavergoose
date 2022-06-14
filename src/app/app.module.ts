@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     JwtModule.forRoot({config: {
       tokenGetter: undefined,
-      allowedDomains: [environment.apiGateway],
+      allowedDomains: [environment.backend],
       disallowedRoutes: [],
     }})
   ],

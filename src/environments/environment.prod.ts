@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiGateway: 'https://frontend.demo-beavergoose.nl/gateway/'
+  backend: 'https://frontend.demo-beavergoose.nl'
 };

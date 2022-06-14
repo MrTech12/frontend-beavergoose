@@ -13,6 +13,6 @@ export class TokenService {
   constructor(private httpClient: HttpClient) { }
 
   RefreshTokens(authcookie: AuthCookie): Observable<any> {
-    return this.httpClient.post<AuthCookie>(`${environment.apiGateway}account/token/refresh`, authcookie);
+    return this.httpClient.post<AuthCookie>(`${environment.backend}/gateway/account/token/refresh`, authcookie);
   }
 }
