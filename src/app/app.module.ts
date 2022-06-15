@@ -13,17 +13,18 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { RegisterComponent } from './components/account/register/register.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { FilesComponent } from './components/fileshare/files/files.component';
 import { SendFileComponent } from './components/fileshare/send-file/send-file.component';
 import { RetrieveFileComponent } from './components/fileshare/retrieve-file/retrieve-file.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LinkItemComponent } from './components/fileshare/link-item/link-item.component';
+import { LinksComponent } from './components/fileshare/links/links.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'files', component: FilesComponent, canActivate: [AuthGuard]},
+  {path: 'links', component: LinksComponent, canActivate: [AuthGuard]},
   {path: 'sendfile', component: SendFileComponent, canActivate: [AuthGuard]},
   {path: 'retrievefile', component: RetrieveFileComponent, canActivate: [AuthGuard]} 
 ]
@@ -34,16 +35,18 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
-    FilesComponent,
     SendFileComponent,
-    RetrieveFileComponent
+    RetrieveFileComponent,
+    LinkItemComponent,
+    LinksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true}),
+    // RouterModule.forRoot(appRoutes, {enableTracing: true}),
+    RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
