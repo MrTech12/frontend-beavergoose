@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Link } from '../../../types/Link';
 
 @Component({
@@ -8,9 +8,15 @@ import { Link } from '../../../types/Link';
 })
 export class LinkItemComponent implements OnInit {
   @Input() link!: Link;
+  @Output() onDownloadFile: EventEmitter<Link> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDownload(link: Link) {
+    this.onDownloadFile.emit(link);
   }
 
 }

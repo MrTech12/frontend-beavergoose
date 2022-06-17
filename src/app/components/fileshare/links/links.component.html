@@ -1,10 +1,16 @@
 <a routerLink="/sendfile">
     <button mat-button>Bestand uploaden</button>
 </a>
-<button mat-button (click)="Logout()">Uitloggen</button>
+<button mat-button (click)="logout()">Uitloggen</button>
 
-<h2>Hier zijn de ontvangen bestanden:</h2>
+<h1>Hier zijn de ontvangen bestanden:</h1>
+
+<div>
+    <mat-error *ngIf="noFiles">Er zijn geen bestanden gevonden voor dit account.</mat-error>
+    <mat-error *ngIf="fileNotFound">Het bestand kon niet gevonden worden.</mat-error>
+</div>
 
 <app-link-item
- *ngFor="let link of links" [link]="link" 
+    *ngFor="let link of links" [link]="link"
+    (onDownloadFile)="downloadFile(link)"
 ></app-link-item>
