@@ -40,7 +40,7 @@ export class LinksComponent implements OnInit {
     });
   }
 
-  downloadFile(link: Link) {
+  downloadFile(link: Link): void {
     this.fileshareService.DownloadFile(link.fileName).subscribe((data: any) => {
       let blob:any = new Blob([data], { type: `${data}; charset=utf-8'` });
       fileSaver.saveAs(blob, undefined);
@@ -54,8 +54,7 @@ export class LinksComponent implements OnInit {
     });
   }
 
-  logout() {
+  logout(): void {
     this.authCookieService.RemoveAuthCookies();
   }
-
 }

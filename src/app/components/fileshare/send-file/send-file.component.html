@@ -1,5 +1,43 @@
-<a routerLink="/links">
-    <button mat-button>Terug naar bestandsoverzicht</button>
-</a>
-
-<p>send-file works!</p>
+<div>
+    <br/>
+    <mat-card class="card-custom">
+      <mat-card-header>
+        <mat-card-title>Verstuur een bestand</mat-card-title>
+        <mat-card-subtitle>Stuur een bestand naar iemand toe.</mat-card-subtitle>
+      </mat-card-header>
+      <form (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <p>
+                <label>Bestand</label> <br/>
+                <input required type="file" name="file" id="file" (change)="onSelectFile($event)" accept=".pdf,.png">
+          </p>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Ontvanger</mat-label>
+              <mat-select [formControl]="receiverId" required>
+                <mat-option *ngFor="let fileReceiver of fileReceivers" [value]="fileReceiver.userId">
+                    {{fileReceiver.userName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.receiverId.hasError('required')">Een waarde is verplicht.</mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Toegestaande downloads</mat-label>
+              <input matInput required type="text" name="allowedDownloads" [formControl]="allowedDownloads" id="allowedDownloads">
+              <mat-error *ngIf="this.allowedDownloads.hasError('required')">Een waarde is verplicht.</mat-error>
+            </mat-form-field>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary" type="submit" [disabled]="disableSubmitBtn">Versturen</button>
+          <a routerLink="/links">
+            <button mat-button>Terug naar bestandsoverzicht</button>
+          </a>
+          <mat-spinner *ngIf="hideSpinner === false">
+          </mat-spinner>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>

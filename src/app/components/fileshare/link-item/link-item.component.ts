@@ -15,7 +15,7 @@ export class LinkItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onDownload(link: Link) {
+  onDownload(link: Link): void {
     this.onDownloadFile.emit(link);
   }
 
