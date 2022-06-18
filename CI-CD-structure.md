@@ -5,8 +5,8 @@ GitHub Actions is being used as the CI/CD pipeline provider, because the code is
 I already made use of GitLab's CI/CD solution in semester 3 and I wanted to try the offering of GitHub.
 
 # Structure
-* GitHub Actions make use of workflows, YAML files that are in a specific folder structure (.github/workflows folders). <br> 
-In these files, triggers are defined for running a workflow, like a push to a branch, the creation of a pull request or issue. <br>
+* GitHub Actions make use of workflows, YAML files that are in a specific folder (.github/workflows). <br> 
+They file inside this folder, contains triggers that are defined for running a workflow, like a push to a branch, the creation of a pull request or issue. <br>
 These files also contain jobs which houses steps. These steps can be the execution of a command or the execution of an action, that is created by another person/team. <br><br>
 
 ### test
@@ -17,10 +17,11 @@ These files also contain jobs which houses steps. These steps can be the executi
 
 ### analyse
 * Purpose: running code analysis tools, like Sonarcloud.
-* Note: Sonarcloud could not process the xml file for detecting test runs, that are created with [this package](https://www.npmjs.com/package/karma-sonarqube-reporter)
+* Note: Sonarcloud could not process the xml file for detecting a test report of test runs, that are created with [this package](https://www.npmjs.com/package/karma-sonarqube-reporter)
 
 ### deploy
 * Purpose: creating Docker images, pushing them onto DockerHub and deploying a new release onto a Kubernetes cluster.
 * Special information
     - The workflow makes use of a program called `yq` to change the Docker image version of the Kubernetes manifest files, so that the deployment makes use of the newest Docker image.
     - the doctl (DigitalOcean CLI) is used to retrieve a kubeconfig file, for interacting with the Kubernetes cluster.
+    - The workflow deploy a pod deployment, service and ingress. The ingress deployment creates an SSL certificate.
