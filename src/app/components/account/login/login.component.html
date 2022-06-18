@@ -1,0 +1,36 @@
+<div>
+  <br/>
+  <mat-card class="card-custom">
+    <mat-card-header>
+      <mat-card-title>Inloggen in jouw account</mat-card-title>
+      <mat-card-subtitle>Vul jouw gegevens om in jouw omgeving te komen.</mat-card-subtitle>
+    </mat-card-header>
+    <form (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <p><mat-label [ngStyle]="{'color': 'red'}">{{backendError}}</mat-label></p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Gebruikersnaam</mat-label>
+            <input matInput required type="text" name="username" [formControl]="username" id="username">
+            <mat-error *ngIf="this.username.hasError('required')">Een waarde is verplicht.</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Wachtwoord</mat-label>
+            <input matInput required type="password" name="password" [formControl]="password" id="password">
+            <mat-error *ngIf="this.password.hasError('required')">Een waarde is verplicht.</mat-error>
+          </mat-form-field>
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" type="submit" [disabled]="disableLoginBtn">Inloggen</button>
+        <a routerLink="/register">
+          <button mat-button color="accent">Registeren</button>
+        </a>
+        <mat-spinner *ngIf="hideSpinner === false">
+        </mat-spinner>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
