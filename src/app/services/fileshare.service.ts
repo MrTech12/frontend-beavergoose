@@ -16,14 +16,17 @@ export class FileshareService {
     const SenderId = this.authCookieService.retrieveUserId();
     const url = `${environment.backend}/gateway/file`;
 
+    let formData = new FormData();
+    formData.append("File", uploadFile.File);
+    formData.append("SenderId", SenderId);
+    formData.append("ReceiverId", uploadFile.ReceiverId);
+    formData.append("AllowedDownloads", uploadFile.AllowedDownloads);
+
     var reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.authCookieService.retrieveAuthCookies().AccessToken
     });
 
-    uploadFile.SenderId = SenderId;
-
-    return this.httpClient.post<any>(url, uploadFile, { headers: reqHeader });
+    return this.httpClient.post<any>(url, formData, { headers: reqHeader });
   }
 
   DownloadFile(fileName: string): Observable<any> {

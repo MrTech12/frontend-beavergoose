@@ -1,7 +1,5 @@
 export interface UploadFile {
-    FileContent: string;
-    FileExtenstion: string;
-    ContentType: string;
+    File: any;
     SenderId: string;
     ReceiverId: string;
     AllowedDownloads: string;

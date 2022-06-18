@@ -27,7 +27,7 @@
           <p>
             <mat-form-field appearance="outline">
               <mat-label>Toegestaande downloads</mat-label>
-              <input matInput required type="text" name="allowedDownloads" [formControl]="allowedDownloads" id="allowedDownloads">
+              <input matInput required type="number" name="allowedDownloads" [formControl]="allowedDownloads" id="allowedDownloads">
               <mat-error *ngIf="this.allowedDownloads.hasError('required')">Een waarde is verplicht.</mat-error>
             </mat-form-field>
           </p>

@@ -70,9 +70,7 @@ export class SendFileComponent implements OnInit {
     await this.file.text().then(text => {fileContent = text});
 
     let newFile: UploadFile = {
-      FileContent: fileContent,
-      FileExtenstion: "",
-      ContentType: this.file.type,
+      File: this.file,
       SenderId: "",
       ReceiverId: this.receiverId.value,
       AllowedDownloads: this.allowedDownloads.value
@@ -83,7 +81,6 @@ export class SendFileComponent implements OnInit {
       this.router.navigateByUrl('links');
     },
     (error: HttpErrorResponse) => {
-      console.log("an error");
       console.log(error);
     });
   }
