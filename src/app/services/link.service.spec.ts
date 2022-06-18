@@ -6,17 +6,17 @@ import { RouterStub } from '../../test/stubs/RouterStub';
 import { AuthCookieService } from 'src/app/services/auth-cookie.service';
 import { AuthCookieStub } from 'src/test/stubs/AuthCookieStub';
 
-import { FileshareService } from './fileshare.service';
+import { LinkService } from './link.service';
 
-describe('FileshareService', () => {
-  let service: FileshareService;
+describe('LinkService', () => {
+  let service: LinkService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule], 
-      providers: [FileshareService, { provide: Router, useClass: RouterStub }, { provide: AuthCookieService, useclass: AuthCookieStub }]
+      providers: [LinkService, { provide: Router, useClass: RouterStub }, { provide: AuthCookieService, useclass: AuthCookieStub }]
     });
-    service = TestBed.inject(FileshareService);
+    service = TestBed.inject(LinkService);
   });
 
   it('should be created', () => {

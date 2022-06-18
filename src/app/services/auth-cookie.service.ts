@@ -15,7 +15,7 @@ export class AuthCookieService {
     this.cookieService.set("AccessToken", authCookie.AccessToken, { sameSite: 'Strict', secure: true });
     this.cookieService.set("RefreshToken", authCookie.RefreshToken, { sameSite: 'Strict', secure: true });
     this.cookieService.set("UserId", userId);
-    this.router.navigateByUrl('files');
+    this.router.navigateByUrl('links');
   }
 
   refreshAuthCookies(authCookie: AuthCookie) {
@@ -29,6 +29,10 @@ export class AuthCookieService {
       RefreshToken: this.cookieService.get("RefreshToken")
     }
     return authCookie;
+  }
+
+  retrieveUserId() {
+    return this.cookieService.get("UserId");
   }
 
   RemoveAuthCookies() {
