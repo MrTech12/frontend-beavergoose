@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 
 import { LoginComponent } from './login.component';
+import { AuthCookieService } from 'src/app/services/auth-cookie.service';
+import { AuthCookieStub } from 'src/test/stubs/AuthCookieStub';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -18,7 +20,10 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, FormsModule, ReactiveFormsModule, MatCardModule, MatInputModule, MatFormFieldModule, BrowserAnimationsModule],
       declarations: [ LoginComponent ],
-      providers: [ { provide: AccountService, useClass: AccountServiceStub } ]
+      providers: [ 
+        { provide: AccountService, useClass: AccountServiceStub }, 
+        { provide: AuthCookieService, useclass: AuthCookieStub } 
+      ]
     })
     .compileComponents();
   });
