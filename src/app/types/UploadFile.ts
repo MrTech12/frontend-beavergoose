@@ -1,5 +1,8 @@
 export interface UploadFile {
-    file: Blob;
-    ReceiverID: string;
+    FileContent: string;
+    FileExtenstion: string;
+    ContentType: string;
+    SenderId: string;
+    ReceiverId: string;
     AllowedDownloads: string;
 }

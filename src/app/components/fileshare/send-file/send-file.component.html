@@ -7,9 +7,11 @@
       </mat-card-header>
       <form (ngSubmit)="onSubmit()">
         <mat-card-content>
+          <mat-error *ngIf="fileTypeError">Dit bestandstype is niet toegestaan.</mat-error>
+          <mat-error *ngIf="fileSizeError">Dit bestand is te groot.</mat-error>
           <p>
                 <label>Bestand</label> <br/>
-                <input required type="file" name="file" id="file" (change)="onSelectFile($event)" accept=".pdf,.png">
+                <input required type="file" name="file" id="file" (change)="onSelectFile($event)" accept=".pdf,.png,.mp4">
           </p>
           <p>
             <mat-form-field appearance="outline">

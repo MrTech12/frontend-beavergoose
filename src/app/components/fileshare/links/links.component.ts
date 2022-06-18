@@ -42,8 +42,12 @@ export class LinksComponent implements OnInit {
 
   downloadFile(link: Link): void {
     this.fileshareService.DownloadFile(link.fileName).subscribe((data: any) => {
-      let blob:any = new Blob([data], { type: `${data}; charset=utf-8'` });
+      let blob:any = new Blob([data], { type: `${data.type}; charset=utf-8'` });
       fileSaver.saveAs(blob, undefined);
+
+      const url= window.URL.createObjectURL(data);
+      window.open(url);
+
       const linkIndex = this.links.indexOf(link);
       this.links.splice(linkIndex, 1);
     },

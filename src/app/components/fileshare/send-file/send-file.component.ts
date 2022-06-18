@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FileshareService } from '../../../services/fileshare.service';
 import { FileReceiver } from '../../../types/FileReciever';
 import { AccountService } from '../../../services/account.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class SendFileComponent implements OnInit {
   fileReceivers: FileReceiver[] = [];
   disableSubmitBtn: boolean = false;
   hideSpinner: boolean = true;
+  fileTypeError: boolean = false;
+  fileSizeError: boolean = false;
 
   constructor(private fileshareService: FileshareService, private accountService: AccountService , private router: Router) { }
 
@@ -38,15 +41,22 @@ export class SendFileComponent implements OnInit {
   }
 
   onSelectFile(event: Event) {
+    this.fileTypeError = false;
+    this.fileSizeError = false;
+
     let file = (<HTMLInputElement>event.target).files;
     if (file != null) {
-      this.file = file[0];
-      // console.log(file[0]);
+      if (file[0].size > 524288000) {
+        this.fileSizeError = true;
+      }
+      else {
+        this.file = file[0];
+      }
     }
   }
   
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
 
     if(this.file.size === 0){
       return;
@@ -55,17 +65,27 @@ export class SendFileComponent implements OnInit {
     this.disableSubmitBtn = true;
     this.hideSpinner = false;
 
+    let fileContent:string = "";
+
+    await this.file.text().then(text => {fileContent = text});
+
     let newFile: UploadFile = {
-      file: this.file,
-      ReceiverID: this.receiverId.value,
+      FileContent: fileContent,
+      FileExtenstion: "",
+      ContentType: this.file.type,
+      SenderId: "",
+      ReceiverId: this.receiverId.value,
       AllowedDownloads: this.allowedDownloads.value
     }
 
-    console.table(newFile);
-
-    // this.fileshareService.UploadFile(newFile).subscribe((data: any) => {
-    //   this.router.navigateByUrl('links');
-    // });
+    this.fileshareService.UploadFile(newFile).subscribe((data: any) => {
+      console.log(data);
+      this.router.navigateByUrl('links');
+    },
+    (error: HttpErrorResponse) => {
+      console.log("an error");
+      console.log(error);
+    });
   }
 
 }
