@@ -8,7 +8,7 @@ jobs:
   build-push-docker:
     runs-on: ubuntu-20.04
     steps:
-      - name: "checkout project code"
+      - name: Checkout project code
         uses: actions/checkout@v2
 
       - name: Setup Docker
@@ -26,11 +26,19 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/beavergoose-frontend:${ GITHUB_REF_NAME }
+          tags: ${{ secrets.DOCKER_USERNAME }}/beavergoose-frontend:${ github.ref_name }
   deploy-kubernetes:
     runs-on: ubuntu-20.04
     needs: build-push-docker
     steps:
+    - name: Checkout project code
+      uses: actions/checkout@v2
+
+    - name: Change the image value of the manifest file to the new version
+      uses: mikefarah/yq@master
+      with:
+        cmd: yq -i '.spec.template.spec.containers[0].image = "mrtech12/beavergoose-frontend:${{ github.ref_name }}"' deploy/frontend-deployment.yml
+
     - name: Install doctl
       uses: digitalocean/action-doctl@v2
       with:
