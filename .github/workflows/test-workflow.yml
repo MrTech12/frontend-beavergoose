@@ -14,18 +14,18 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     steps:
-      - name: "checkout project code"
+      - name: Checkout project code
         uses: actions/checkout@v2
       
-      - name: "Setup Node.JS v16"
+      - name: Setup Node.JS v16
         uses: actions/setup-node@v3
         with:
           node-version: '16'
       
-      - name: "Install dependencies"
+      - name: Install dependencies
         run: npm ci
 
-      - name: "Run tests & gather Code Coverage"
+      - name: Run tests & gather Code Coverage
         run: npm run test:ci
 
       - name: Retrieve Test Results
