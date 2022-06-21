@@ -11,5 +11,5 @@ RUN npm run build:prod
 # Stage 2
 FROM nginx:1.22.0-alpine
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=build-step /app/dist /usr/share/nginx/html
+COPY --from=build-step /app/dist/frontend-beavergoose /usr/share/nginx/html
 EXPOSE 80
