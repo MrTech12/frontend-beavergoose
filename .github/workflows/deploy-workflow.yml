@@ -15,15 +15,15 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: "Login into DockerHub"
-        run: docker login -u ${{ secrets.docker-username }} -p ${{ secrets.docker-token }}
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
 
       - name: "build Docker image"
-        run: docker build -t ${{ secrets.docker-username }}/beavergoose-frontend:$BRANCH_NAME .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/beavergoose-frontend:$BRANCH_NAME .
         env:
           BRANCH_NAME: ${{ github.ref_name }}
 
       - name: "Push Docker image"
-        run: docker push ${{ secrets.docker-username }}/beavergoose-frontend:$BRANCH_NAME
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/beavergoose-frontend:$BRANCH_NAME
         env:
           BRANCH_NAME: ${{ github.ref_name }}
   deploy-kubernetes:
