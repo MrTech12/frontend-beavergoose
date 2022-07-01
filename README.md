@@ -1,6 +1,27 @@
 # frontend beavergoose
 
-The frontend repo of my semester 6 Individual Project, written in TypeScript & Angular 13.2.2.
+## Overview
+* The frontend repo of my semester 6 Individual Project, written in TypeScript & Angular 13.2.2.
+* It has the following features:
+  - Creating an account
+  - Logging into an account
+  - Logging out
+  - Viewing files that people have send
+  - Sending a file to a person
+  - Downloading a file
+
+## Setup
+* After cloning the repo, the following commands are required to start the application:
+1. `npm install` -- Installing dependencies
+2. `npm start` -- Runs the application with the 'development' configuration.
+* The application is reachable on `localhost:4200`.
+
+## Backend
+* The application communicates with an API Gateway, for retrieving/sending data.
+* The adress to reach the gateway, can be located in the following director: src -> environments
+* There are two important files:
+  - environment.dev.ts -- address to reach the development gateway.
+  - environment.prod.ts -- address to reach the production gateway.
 
 ---
 
